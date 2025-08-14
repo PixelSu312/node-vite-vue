@@ -52,5 +52,8 @@ jobs:
           # Upload entire repository
           path: './dist'
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        # id: deployment
+        # uses: actions/deploy-pages@v4
+        uses: netlify/actions/cli@master
+        with:
+          args: deploy --prod --dir=./dist
