@@ -51,9 +51,14 @@ jobs:
         with:
           # Upload entire repository
           path: './dist'
-      - name: Deploy to GitHub Pages
+      # - name: Deploy to GitHub Pages
         # id: deployment
         # uses: actions/deploy-pages@v4
-        uses: netlify/actions/cli@master
-        with:
-          args: deploy --prod --dir=./dist
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
+
+      - name: Deploy to Netlify
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: netlify deploy --prod --dir=./dist
